@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>ORFNUR Market</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="top-bar" id="top-bar">
+    <div class="left">
+        <div class="brand" id="brand">ORFNUR</div>
+        <nav class="right-nav">
+            <button data-win="main">Главная</button>
+            <button data-win="sale">Акции</button>
+            <button id="order-btn">Заказ</button>
+            <button id="register-btn">Регистрация</button>
+        </nav>
+        <div class="cart-icon" id="cart-icon" style="cursor:pointer;">🛒</div>
+    </div>
+</header>
+
+<main>
+    <section id="main" class="window active">
+        <div class="container" id="product-container"></div>
+    </section>
+
+    <section id="sale" class="window">
+        <h2 style="text-align:center; padding: 20px;">🔥 Акции (Скидки)</h2>
+        <div class="container" id="sale-container"></div>
+    </section>
+</main>
+
+<div id="register-modal" class="modal">
+    <div class="modal-content glass-style">
+        <span class="close" id="close-register">&times;</span>
+        <h2>Вход</h2>
+        <form id="register-form">
+            <div class="input-group">
+                <label>Email *</label>
+                <input type="email" placeholder="Введите Email" required>
+            </div>
+            
+            <div class="input-group">
+                <label>Пароль *</label>
+                <div style="position: relative;">
+                    <input type="password" placeholder="Введите пароль" required>
+                    <a href="#" class="forgot-link" style="position: absolute; right: 0; top: -20px;">Забыли пароль?</a>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-orange">Войти</button>
+            
+            <div style="text-align: center; margin-top: 15px;">
+                <a href="#" class="reg-link">Войти по номеру телефона</a>
+            </div>
+
+            <div class="divider">
+                <span>Войти через социальные сети</span>
+            </div>
+
+            <div class="social-icons">
+                <span class="icon">🔵</span> <span class="icon">🟠</span> <span class="icon">🟡</span> <span class="icon">🔴</span> </div>
+        </form>
+    </div>
+</div>
+
+<div id="order-modal" class="modal">
+    <div class="modal-content glass-style">
+        <span class="close" id="close-order">&times;</span>
+        <h2>Оформить заказ</h2>
+        <form id="order-form">
+            <div class="input-group">
+                <label>Ваше имя</label>
+                <input id="order-name" placeholder="Имя" required>
+            </div>
+            
+            <div class="input-group">
+                <label>Телефон</label>
+                <input id="order-phone" placeholder="992XXXXXXXXX" required pattern="\d*">
+            </div>
+
+            <div class="input-group">
+                <label>Адрес (Дом/Квартира)</label>
+                <input id="order-address" placeholder="Улица, дом, кв" required>
+            </div>
+
+            <div class="input-group">
+                <label>Промокод</label>
+                <input id="order-promo" placeholder="Введите промокод" style="border: 1px dashed #d37000;">
+            </div>
+
+            <div class="input-group">
+                <label>Способ оплаты</label>
+                <select id="order-payment" style="width: 100%; padding: 10px; border-radius: 8px;">
+                    <option>Наличные</option>
+                    <option>Карта</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn-orange">Подтвердить заказ</button>
+        </form>
+    </div>
+</div>
+
+<div id="cart-modal" class="modal">
+    <div class="modal-content glass-style">
+        <span class="close" id="close-cart">&times;</span>
+        <h2>Корзина</h2>
+        <ul id="cart-items" style="list-style:none; padding:0;"></ul>
+        <hr>
+        <div class="total" style="font-weight:bold; font-size: 1.2rem; margin: 15px 0;">
+            Итого: <span id="total-price">0</span> сомони
+        </div>
+        <button class="btn-orange" onclick="document.getElementById('close-cart').click(); document.getElementById('order-btn').click();">
+            Оформить заказ
+        </button>
+    </div>
+</div>
+
+<div class="category-menu">
+    <button class="cat-btn" onclick="render('Все')"> Все</button>
+    <button class="cat-btn" onclick="render('Овощи')">🥦 Овощи</button>
+    <button class="cat-btn" onclick="render('Фрукты')">🍎 Фрукты</button>
+    <button class="cat-btn" onclick="render('Ягоды')">🍓 Ягоды</button>
+    <button class="cat-btn" onclick="render('Морепродукты')">🐟 Рыба</button>
+    <button class="cat-btn" onclick="render('Молочка')">🧀 Молочка</button>
+    <button class="cat-btn" onclick="render('Напитки')">🥤 Напитки</button>
+    <button class="cat-btn" onclick="render('Мясо')">🥩 Мясо</button>
+</div>
+
+<div style="padding: 20px; text-align:center;">
+    <label>Яркость:</label>
+    <input type="range" id="rating" min="1" max="10" value="10">
+</div>
+
+<footer>
+    <div class="footer-content">
+        <span>📞 +992007882811 | Худжанд</span>
+        <span>📧 hurshedvosidov09@gmail.com</span>
+        <span>📷 Instagram: @vosidov.o9</span>
+        <span class="brand-year">ORFNUR © 2026</span>
+    </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

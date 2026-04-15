@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>ORFNUR Admin</title>
+</head>
+<body style="background:#000;color:#fff">
+  <h1>📦 Заказы</h1>
+  <pre id="orders"></pre>
+
+  <script>
+    fetch("/api/orders")
+      .then(r => r.json())
+      .then(data => {
+        document.getElementById("orders").textContent =
+          JSON.stringify(data, null, 2)
+      })
+  </script>
+</body>
+</html>

@@ -1,0 +1,337 @@
+
+// ------------------ Products ------------------
+const productContainer = document.getElementById("product-container")
+const saleContainer = document.getElementById("sale-container")
+const cartItems = document.getElementById("cart-items")
+const totalPriceEl = document.getElementById("total-price")
+
+// **Товары остаются без изменений**
+const products = [
+  {name:"Помидор", img:"img/1.jpg", price:12, stock:15},
+  {name:"Огурец", img:"img/2.jpg", price:10, stock:12},
+  {name:"Морковь", img:"img/3.webp", price:8, stock:20},
+  {name:"Картофель", img:"img/4.jpg", price:7, stock:18},
+  {name:"Лук", img:"img/5.jpg", price:6, stock:25},
+  {name:"Чеснок", img:"img/6.jpg", price:11, stock:10},
+  {name:"Перец", img:"img/7.jpg", price:15, stock:8},
+  {name:"Кабачок", img:"img/8.jpg", price:9, stock:14},
+  {name:"Баклажан", img:"img/9.jpg", price:13, stock:10},
+  {name:"Свекла", img:"img/10.jpg", price:10, stock:12},
+  {name:"Клубника", img:"img/11.jpg", price:20, stock:15},
+  {name:"Яблоко", img:"img/12.jpg", price:18, stock:20},
+  {name:"Груша", img:"img/13.jpg", price:17, stock:10},
+  {name:"Вишня", img:"img/14.jpg", price:22, stock:8},
+  {name:"Слива", img:"img/15.jpg", price:19, stock:12},
+  {name:"Апельсин", img:"img/16.jpg", price:21, stock:15},
+  {name:"Лимон", img:"img/17.jpg", price:23, stock:10},
+  {name:"Банан", img:"img/18.jpg", price:25, stock:18},
+  {name:"Манго", img:"img/19.jpg", price:28, stock:12},
+  {name:"Ананас", img:"img/20.jpg", price:30, stock:6},
+  {name:"Киви", img:"img/21.jpg", price:24, stock:10},
+  {name:"Арбуз", img:"img/22.jpg", price:35, stock:7},
+  {name:"Дыня", img:"img/23.jpg", price:32, stock:9},
+  {name:"Черника", img:"img/24.jpg", price:26, stock:12},
+  {name:"Малина", img:"img/25.jpg", price:27, stock:14},
+  {name:"Капуста", img:"img/26.jpg", price:11, stock:18},
+  {name:"Шпинат", img:"img/27.jpg", price:13, stock:10},
+  {name:"Брокколи", img:"img/28.jpg", price:15, stock:8},
+  {name:"Цветная капуста", img:"img/29.jpg", price:14, stock:12},
+  {name:"Фасоль", img:"img/30.jpg", price:16, stock:10},
+  {name:"Горошек", img:"img/31.jpg", price:12, stock:15},
+  {name:"Кукуруза", img:"img/32.jpg", price:10, stock:20},
+  {name:"Редис", img:"img/33.jpg", price:8, stock:18},
+  {name:"Салат", img:"img/34.jpg", price:9, stock:14},
+  {name:"Базилик", img:"img/35.jpg", price:10, stock:12},
+  {name:"Мята", img:"img/36.jpg", price:9, stock:15},
+  {name:"Петрушка", img:"img/37.jpg", price:8, stock:10},
+  {name:"Укроп", img:"img/38.jpg", price:7, stock:12},
+  {name:"Гранат", img:"img/39.jpg", price:28, stock:6},
+  {name:"Фейхоа", img:"img/40.jpg", price:29, stock:5},
+  {name:"Кокос", img:"img/41.jpg", price:32, stock:4},
+  {name:"Лайм", img:"img/42.jpg", price:22, stock:8},
+  {name:"Персик", img:"img/43.jpg", price:20, stock:10},
+  {name:"Нектарин", img:"img/44.jpg", price:21, stock:9},
+  {name:"Алыча", img:"img/45.jpg", price:19, stock:7},
+  {name:"Хурма", img:"img/46.jpg", price:23, stock:5},
+  {name:"Инжир", img:"img/47.jpg", price:25, stock:6},
+  {name:"Финик", img:"img/48.jpg", price:24, stock:8},
+  {name:"Клюква", img:"img/49.jpg", price:27, stock:10},
+  {name:"Медовая дыня", img:"img/50.jpg", price:30, stock:5},
+]
+
+// ------------------ Render Products ------------------
+function render(list, el){
+  el.innerHTML=""
+  list.forEach(p=>{
+    const d = document.createElement("div")
+    d.className = "card"
+    d.innerHTML = `
+      <img src="${p.img}" alt="${p.name}">
+      <h3>${p.name}</h3>
+      <div class="price">${p.price} сомони / кг</div>
+      <div class="stock">Осталось: ${p.stock} кг</div>
+      <select>
+        <option value="0.5">0.5 кг</option>
+        <option value="1">1 кг</option>
+        <option value="1.5">1.5 кг</option>
+      </select>
+      <button>В корзину</button>
+    `
+    const btn = d.querySelector("button")
+    btn.onclick = ()=>{
+      const weight = parseFloat(d.querySelector("select").value)
+      if(p.stock >= weight){
+        const flyImg = d.querySelector("img").cloneNode(true)
+        flyImg.style.position="fixed"
+        const rect = d.querySelector("img").getBoundingClientRect()
+        flyImg.style.top = rect.top + "px"
+        flyImg.style.left = rect.left + "px"
+        flyImg.style.width = rect.width + "px"
+        flyImg.style.height = rect.height + "px"
+        flyImg.style.zIndex=1000
+        document.body.appendChild(flyImg)
+        const cartRect = cartIcon.getBoundingClientRect()
+        setTimeout(()=>{
+          flyImg.style.transition="all 0.7s ease-in-out"
+          flyImg.style.top = cartRect.top + "px"
+          flyImg.style.left = cartRect.left + "px"
+          flyImg.style.width="40px"
+          flyImg.style.height="40px"
+          flyImg.style.opacity=0
+        },10)
+        setTimeout(()=>flyImg.remove(),700)
+
+        p.stock -= weight
+        if(cartData[p.name]){
+          cartData[p.name].qty += weight
+          cartData[p.name].li.querySelector(".qty-number").textContent = cartData[p.name].qty+" кг"
+        }else{
+          const li = document.createElement("li")
+          li.innerHTML=`${p.name} — ${p.price} сомони 
+          <div class="qty-controls">
+            <button class="minus">−</button>
+            <span class="qty-number">${weight} кг</span>
+            <button class="plus">+</button>
+            <button class="delete">Удалить</button>
+          </div>`
+          cartItems.appendChild(li)
+          cartData[p.name]={price:p.price,qty:weight,li, product:p}
+          li.querySelector(".plus").onclick=()=>{
+            cartData[p.name].qty+=0.5
+            cartData[p.name].li.querySelector(".qty-number").textContent=cartData[p.name].qty+" кг"
+            cartData[p.name].product.stock -=0.5
+            render(products, productContainer)
+            updateTotal()
+          }
+          li.querySelector(".minus").onclick=()=>{
+            if(cartData[p.name].qty>0.5){
+              cartData[p.name].qty-=0.5
+              cartData[p.name].li.querySelector(".qty-number").textContent=cartData[p.name].qty+" кг"
+              cartData[p.name].product.stock +=0.5
+              render(products, productContainer)
+              updateTotal()
+            }
+          }
+          li.querySelector(".delete").onclick=()=>{
+            cartData[p.name].product.stock += cartData[p.name].qty
+            delete cartData[p.name]
+            li.remove()
+            render(products, productContainer)
+            updateTotal()
+          }
+        }
+        render(products, productContainer)
+        updateTotal()
+      }
+    }
+    el.appendChild(d)
+  })
+}
+
+
+
+
+
+
+
+
+
+_______________________________________________________________________________________________________
+
+java script
+css
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
+body{background:#111;color:white}
+
+/* Верхняя панель */
+.top-bar{
+  background:red;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:10px 20px;
+  position:sticky;
+  top:0;
+  z-index:1000;
+}
+.left{display:flex;align-items:center;gap:15px;width:100%}
+.brand{font-size:26px;font-weight:900}
+.right-nav{display:flex;gap:8px;margin-left:auto}
+.right-nav button{
+  background:black;
+  color:white;
+  border:none;
+  padding:6px 12px;
+  border-radius:6px;
+  cursor:pointer;
+  transition:.3s
+}
+.right-nav button:hover{background:white;color:red}
+.cart-icon{font-size:28px;cursor:pointer;margin-left:15px}
+
+/* Окна товаров */
+.window{display:none;padding:20px}
+.window.active{display:block}
+.container{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+  gap:12px;
+}
+.card{
+  background:#222;
+  border-radius:12px;
+  padding:10px;
+  box-shadow:0 0 15px rgba(255,0,0,.4);
+  transition:.3s
+}
+.card:hover{transform:translateY(-5px)}
+.card img{width:100%;height:120px;object-fit:cover;border-radius:8px}
+.card h3{text-align:center}
+.card .price,.stock{text-align:center;font-size:13px}
+.card select, .card button{width:100%;margin-top:5px;padding:6px;border-radius:6px;border:none}
+.card button{background:red;color:white;cursor:pointer;font-weight:bold}
+
+/* Модалки */
+.modal{
+  display:none;
+  position:fixed;
+  top:0; left:0; width:100%; height:100%;
+  background: rgba(0,0,0,0.4);
+  justify-content:center;
+  align-items:center;
+  z-index:2000;
+}
+.modal-content{
+  background:#333; /* серый фон */
+  padding:20px;
+  border-radius:12px;
+  width:400px;
+  max-width:90%;
+  position:relative;
+}
+.small-modal{width:400px; max-width:90%}
+.close{position:absolute;top:10px;right:12px;font-size:24px;cursor:pointer;color:red}
+
+/* Подвал */
+footer{background:black;font-size:14px;padding:25px;text-align:center;display:flex;flex-direction:column;gap:6px;justify-content:center}
+footer .brand-year{margin-top:10px;font-weight:bold;font-size:16px}
+
+/* Адаптив */
+@media(max-width:768px){
+  .brand{font-size:22px}
+  .right-nav{flex-wrap:wrap;gap:4px}
+}
+index.html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>ORFNUR Market</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="top-bar" id="top-bar">
+  <div class="left">
+    <div class="brand" id="brand">ORFNUR</div>
+    <nav class="right-nav">
+      <button data-win="main">Главная</button>
+      <button data-win="sale">Акции</button>
+      <button id="order-btn">Заказ</button>
+      <button id="regis366ter-btn">Регистрация</button>
+    </nav>
+    <div class="cart-icon" id="cart-icon">🛒</div>
+  </div>
+</header>
+
+<main>
+  <section id="main" class="window active">
+    <div class="container" id="product-container"></div>
+  </section>
+  <section id="sale" class="window">
+    <h2>🔥 Акции</h2>
+    <div class="container" id="sale-container"></div>
+  </section>
+</main>
+
+<!-- Модалка заказа -->
+<div id="order-modal" class="modal">
+  <div class="modal-content small-modal">
+    <span class="close" id="close-order">&times;</span>
+    <h2>Оформить заказ</h2>
+    <form id="order-form">
+      <input id="order-name" placeholder="Имя" required>
+      <input id="order-phone" placeholder="Телефон" required pattern="\d*" title="Только цифры">
+      <input id="order-address" placeholder="Адрес" required>
+      <button type="button" id="choose-map">📍 Выбрать на карте</button>
+      <select id="order-payment">
+        <option>Наличные</option>
+        <option>Карта</option>
+      </select>
+      <button type="submit">Заказать</button>
+    </form>
+  </div>
+</div>
+
+<!-- Модалка регистрации -->
+<div id="register-modal" class="modal">
+  <div class="modal-content small-modal">
+    <span class="close" id="close-register">&times;</span>
+    <h2>Регистрация</h2>
+    <form id="register-form">
+      <input placeholder="Имя">
+      <input placeholder="Email">
+      <input placeholder="Телефон" pattern="\d*" title="Только цифры">
+      <input placeholder="Пароль" type="password">
+      <button>Создать аккаунт</button>
+    </form>
+  </div>
+</div>
+
+<!-- Модалка корзины -->
+<div id="cart-modal" class="modal">
+  <div class="modal-content small-modal">
+    <span class="close" id="close-cart">&times;</span>
+    <h2>Корзина</h2>
+    <ul id="cart-items"></ul>
+    <div class="total">Итого: <span id="total-price">0</span> сомони</div>
+  </div>
+</div>
+
+<label>Яркость:</label>
+<input type="range" id="rating" min="1" max="10" value="10">
+
+<footer>
+  <div class="footer-content">
+    <span>📞 +992007882811 | Худжанд</span>
+    <span>📧 hurshedvosidov09@gmail.com</span>
+    <span>📧 hurshedvosidov51@gmail.com</span>
+    <span>📷 Instagram: @vosidov.o9</span>
+    <span class="brand-year">ORFNUR © 2026</span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
+переделай там не работает
