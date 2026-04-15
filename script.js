@@ -6,68 +6,42 @@ const totalPriceEl = document.getElementById("total-price");
 const cart = {};
 
 // 🔥 Полный список товаров по категориям
+// 🔥 Обновленный список товаров с качественными фото из интернета
 const products = [
     // --- ОВОЩИ ---
-    {name:"Помидор", price:12, stock:20, img:"./img/1.jpg", cat:"Овощи"},
-    {name:"Огурец", price:10, stock:18, img:"./img/2.jpg", cat:"Овощи"},
-    {name:"Морковь", price:8, stock:25, img:"./img/3.webp", cat:"Овощи"},
-    {name:"Картофель", price:7, stock:30, img:"./img/4.jpg", cat:"Овощи"},
-    {name:"Лук", price:6, stock:22, img:"./img/5.jpg", cat:"Овощи"},
-    {name:"Чеснок", price:11, stock:15, img:"./img/6.jpg", cat:"Овощи"},
-    {name:"Перец", price:15, stock:10, img:"./img/7.jpg", cat:"Овощи"},
-    {name:"Баклажан", price:13, stock:12, img:"./img/9.jpg", cat:"Овощи"},
-    {name:"Капуста", price:5, stock:20, img:"./img/10.jpg", cat:"Овощи"},
-    {name:"Тыква", price:18, stock:7, img:"./img/4.jpg", cat:"Овощи"},
+    {name:"Помидор", price:12, stock:20, img:"http://googleusercontent.com/image_collection/image_retrieval/15946831848265199063_0", cat:"Овощи"},
+    {name:"Огурец", price:10, stock:18, img:"http://googleusercontent.com/image_collection/image_retrieval/18359108607327713746_0", cat:"Овощи"},
+    {name:"Морковь", price:8, stock:25, img:"http://googleusercontent.com/image_collection/image_retrieval/1275692424643410352_0", cat:"Овощи"},
+    {name:"Картофель", price:7, stock:30, img:"http://googleusercontent.com/image_collection/image_retrieval/1116937562472983926_0", cat:"Овощи"},
+    {name:"Лук", price:6, stock:22, img:"https://images.unsplash.com/photo-1508747703725-719777637510?q=80&w=400&auto=format&fit=crop", cat:"Овощи"},
+    {name:"Перец", price:15, stock:10, img:"https://images.unsplash.com/photo-1563513307168-a400c43827ec?q=80&w=400&auto=format&fit=crop", cat:"Овощи"},
 
     // --- ФРУКТЫ ---
-    {name:"Яблоко Red", price:9, stock:25, img:"./img/1.jpg", cat:"Фрукты"},
-    {name:"Груша", price:11, stock:20, img:"./img/2.jpg", cat:"Фрукты"},
-    {name:"Банан", price:12, stock:30, img:"./img/3.webp", cat:"Фрукты"},
-    {name:"Апельсин", price:13, stock:18, img:"./img/4.jpg", cat:"Фрукты"},
-    {name:"Мандарин", price:14, stock:22, img:"./img/5.jpg", cat:"Фрукты"},
-    {name:"Лимон", price:8, stock:15, img:"./img/6.jpg", cat:"Фрукты"},
-    {name:"Манго", price:25, stock:10, img:"./img/8.jpg", cat:"Фрукты"},
-    {name:"Ананас", price:28, stock:8, img:"./img/9.jpg", cat:"Фрукты"},
+    {name:"Яблоко Red", price:9, stock:25, img:"http://googleusercontent.com/image_collection/image_retrieval/9288331823627810977_0", cat:"Фрукты"},
+    {name:"Банан", price:12, stock:30, img:"http://googleusercontent.com/image_collection/image_retrieval/2466455153918789342_0", cat:"Фрукты"},
+    {name:"Апельсин", price:13, stock:18, img:"https://images.unsplash.com/photo-1547514701-42782101795e?q=80&w=400&auto=format&fit=crop", cat:"Фрукты"},
+    {name:"Манго", price:25, stock:10, img:"https://images.unsplash.com/photo-1553279768-865429fa0078?q=80&w=400&auto=format&fit=crop", cat:"Фрукты"},
 
     // --- ЯГОДЫ ---
-    {name:"Клубника", price:35, stock:15, img:"./img/1.jpg", cat:"Ягоды"},
-    {name:"Малина", price:40, stock:10, img:"./img/2.jpg", cat:"Ягоды"},
-    {name:"Ежевика", price:45, stock:8, img:"./img/3.webp", cat:"Ягоды"},
-    {name:"Голубика", price:50, stock:12, img:"./img/4.jpg", cat:"Ягоды"},
-    {name:"Вишня", price:22, stock:20, img:"./img/5.jpg", cat:"Ягоды"},
-    {name:"Черешня", price:30, stock:15, img:"./img/6.jpg", cat:"Ягоды"},
-    {name:"Арбуз", price:15, stock:40, img:"./img/7.jpg", cat:"Ягоды"},
-    {name:"Дыня", price:20, stock:20, img:"./img/8.jpg", cat:"Ягоды"},
+    {name:"Клубника", price:35, stock:15, img:"http://googleusercontent.com/image_collection/image_retrieval/4337737812771956264_0", cat:"Ягоды"},
+    {name:"Черника", price:50, stock:12, img:"https://images.unsplash.com/photo-1498557850523-fd3d118b962e?q=80&w=400&auto=format&fit=crop", cat:"Ягоды"},
+    {name:"Арбуз", price:15, stock:40, img:"https://images.unsplash.com/photo-1587049352846-4a222e784d38?q=80&w=400&auto=format&fit=crop", cat:"Ягоды"},
 
     // --- МОРЕПРОДУКТЫ ---
-    {name:"Семга филе", price:150, stock:5, img:"./img/1.jpg", cat:"Морепродукты"},
-    {name:"Форель", price:130, stock:7, img:"./img/2.jpg", cat:"Морепродукты"},
-    {name:"Креветки Королевские", price:90, stock:15, img:"./img/3.webp", cat:"Морепродукты"},
-    {name:"Мидии", price:70, stock:20, img:"./img/4.jpg", cat:"Морепродукты"},
-    {name:"Осьминог", price:200, stock:4, img:"./img/5.jpg", cat:"Морепродукты"},
-    {name:"Кальмары", price:60, stock:12, img:"./img/6.jpg", cat:"Морепродукты"},
-    {name:"Краб", price:350, stock:3, img:"./img/7.jpg", cat:"Морепродукты"},
-    {name:"Икра", price:400, stock:10, img:"./img/8.jpg", cat:"Морепродукты"},
+    {name:"Семга филе", price:150, stock:5, img:"http://googleusercontent.com/image_collection/image_retrieval/11664620031791674342_0", cat:"Морепродукты"},
+    {name:"Креветки", price:90, stock:15, img:"https://images.unsplash.com/photo-1559737558-2f5a35f4520b?q=80&w=400&auto=format&fit=crop", cat:"Морепродукты"},
 
     // --- МОЛОЧНЫЕ ПРОДУКТЫ ---
-    {name:"Молоко 3.2%", price:8, stock:20, img:"./img/1.jpg", cat:"Молочка"},
-    {name:"Кефир", price:7, stock:18, img:"./img/2.jpg", cat:"Молочка"},
-    {name:"Сыр Гауда", price:85, stock:10, img:"./img/4.jpg", cat:"Молочка"},
-    {name:"Творог", price:15, stock:15, img:"./img/7.jpg", cat:"Молочка"},
-    {name:"Масло сливочное", price:20, stock:25, img:"./img/5.jpg", cat:"Молочка"},
+    {name:"Молоко", price:8, stock:20, img:"http://googleusercontent.com/image_collection/image_retrieval/17046947658895528975_0", cat:"Молочка"},
+    {name:"Сыр Гауда", price:85, stock:10, img:"https://images.unsplash.com/photo-1486297678162-ad2a19b058f1?q=80&w=400&auto=format&fit=crop", cat:"Молочка"},
 
     // --- МЯСО ---
-    {name:"Говядина (вырезка)", price:75, stock:10, img:"./img/1.jpg", cat:"Мясо"},
-    {name:"Курица (грудка)", price:38, stock:20, img:"./img/2.jpg", cat:"Мясо"},
-    {name:"Баранина", price:80, stock:8, img:"./img/3.webp", cat:"Мясо"},
-    {name:"Индейка", price:55, stock:12, img:"./img/4.jpg", cat:"Мясо"},
+    {name:"Говядина", price:75, stock:10, img:"http://googleusercontent.com/image_collection/image_retrieval/11032179667572750869_0", cat:"Мясо"},
+    {name:"Курица", price:38, stock:20, img:"https://images.unsplash.com/photo-1604503468506-a8da13d82791?q=80&w=400&auto=format&fit=crop", cat:"Мясо"},
 
     // --- НАПИТКИ ---
-    {name:"Сок J7", price:15, stock:30, img:"./img/1.jpg", cat:"Напитки"},
-    {name:"Кола 1.5л", price:12, stock:50, img:"./img/2.jpg", cat:"Напитки"},
-    {name:"Вода 0.5л", price:3, stock:100, img:"./img/3.webp", cat:"Напитки"},
-    {name:"Чай черный", price:25, stock:40, img:"./img/4.jpg", cat:"Напитки"},
-    {name:"Кофе Egoiste", price:90, stock:15, img:"./img/5.jpg", cat:"Напитки"}
+    {name:"Апельсиновый сок", price:15, stock:30, img:"http://googleusercontent.com/image_collection/image_retrieval/1023588933287466787_0", cat:"Напитки"},
+    {name:"Кофе в зернах", price:90, stock:15, img:"https://images.unsplash.com/photo-1559056191-7239f1f0a20e?q=80&w=400&auto=format&fit=crop", cat:"Напитки"}
 ];
 
 // Функция для получения иконок категорий
